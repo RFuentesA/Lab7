@@ -1,4 +1,4 @@
-from List import *
+#from List import *
 
 class Heap():
     def __init__(self, size = 0, arreglo = []):
@@ -51,18 +51,31 @@ class Heap():
             arreglo[i] = arreglo[mayor]                            #|
             arreglo[mayor] = temp                                  #|
             self.maxHeapify(mayor)                             #----- 
-        #print(arreglo)
+        return self.__arreglo
     
     def buildMaxHeap(self):
-        for i in range(len(self.__arreglo) // 2 - 1, -1, -1):
-            self.maxHeapify(i)
-        
+        for i in range(len(self.__arreglo) // 2 - 1, -1, -1): #Arranca desde la mitad del arreglo.
+            self.maxHeapify(i) #Usa el método para asegurarse que el el mayor vaya siempre arriba.
+        return self.__arreglo
+    
+    def heapSort(self):
+        self.buildMaxHeap()
+        for i in range(len(self.__arreglo)-1, 0, -1):
+            temp = self.__arreglo[i]
+            self.__arreglo[i] = self.__arreglo[0]
+            self.__arreglo[0] = temp
+            self.__size -= 1
+            self.maxHeapify(0)
+        return self.__arreglo
         
 
        
 h1 = Heap()
-h1.setArreglo([12, 31, 24, 9, 11, 14, 99])
-print(h1.buildMaxHeap())
+arreglito = [1, 2, 3, 4, 5, 6, 7]
+h1.setArreglo(arreglito)
+#print(h1.maxHeapify(2))
+#print(h1.buildMaxHeap())
+print(h1.heapSort())
 #print(h1.parent(3))
 #print(h1.self.__arreglo)
 #print(h1.hijoDerecho(1))
