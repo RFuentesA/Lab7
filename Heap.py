@@ -30,52 +30,57 @@ class Heap():
     def hijoDerecho(self, i):
         return 2*i + 2
     
-    def maxHeapify(self, i):
+    def maxHeapify(self, arreA, i, tamañoHeap):
         if self.__arreglo != None: #Verifico si el arreglo esta vacio.
-            arreglo = self.__arreglo
+            arreA = self.__arreglo
             #self.setArreglo(arreglo) Si el arreglo contiene algo lo ingresa como atributo del nuevo objeto.
-            self.__size = len(arreglo) #Se actualiza el tamaño para que tome el tamaño del arreglo.
+            self.__size = len(arreA) #Se actualiza el tamaño para que tome el tamaño del arreglo.
             tamañoHeap = self.getSize() #variable que guarda el tamaño del heap.
         else:
             print("El arreglo que diste esta vacio. ")
         l = self.hijoIzquierdo(i) #l va a tomar el indice del hijo izquierdo.
         r = self.hijoDerecho(i) #r va a tomar el indice del hijo derecho.
-        if l <= tamañoHeap and arreglo[l]>arreglo[i]:          #-----
+        if l <= tamañoHeap and arreA[l]>arreA[i]:          #-----
             mayor = l                                              #|
         else:                                                      #|
             mayor = i                                              #|
-        if r <= tamañoHeap and arreglo[r]>arreglo[mayor]:          #|
+        if r <= tamañoHeap and arreA[r]>arreA[mayor]:          #|
             mayor = r                                              #---- Se asegura que el indice con el mayor numero quede en la posicion correcta. 
         if mayor != i:                                             #|
-            temp = arreglo[i]                                      #|
-            arreglo[i] = arreglo[mayor]                            #|
-            arreglo[mayor] = temp                                  #|
-            self.maxHeapify(mayor)                             #----- 
-        return self.__arreglo
+            temp = arreA[i]                                      #|
+            arreA[i] = arreA[mayor]                            #|
+            arreA[mayor] = temp                                  #|
+            self.maxHeapify(arreA, mayor, tamañoHeap)                             #----- 
+        return arreA
     
-    def buildMaxHeap(self):
-        for i in range(len(self.__arreglo) // 2 - 1, -1, -1): #Arranca desde la mitad del arreglo.
-            self.maxHeapify(i) #Usa el método para asegurarse que el el mayor vaya siempre arriba.
-        return self.__arreglo
+    def buildMaxHeap(self, arreB):
+        arreB = self.__arreglo
+        for i in range(len(arreB) // 2 - 1, -1, -1): #Arranca desde la mitad del arreglo.
+            self.maxHeapify(None, i, len(arreB)) #Usa el método para asegurarse que el el mayor vaya siempre arriba.
+        return arreB
     
-    def heapSort(self):
-        self.buildMaxHeap()
-        for i in range(len(self.__arreglo)-1, 0, -1):
-            temp = self.__arreglo[i]
-            self.__arreglo[i] = self.__arreglo[0]
-            self.__arreglo[0] = temp
-            self.__size -= 1
-            self.maxHeapify(0)
-        return self.__arreglo
+    def heapSort(self, arreA):
+        arreA = self.__arreglo
+        tamañoHeap2 = len(arreA)
+        self.buildMaxHeap(arreA)
+        for i in range(len(arreA)-1, 0, -1):
+            temp = arreA[i]
+            arreA[i] = arreA[0]
+            arreA[0] = temp
+            #self.__size = tamañoHeap2
+            tamañoHeap2 -= 1
+            #self.setSize(tamañoHeap2)
+            self.maxHeapify(arreA, 0, tamañoHeap2)
+        return arreA
         
 
        
 h1 = Heap()
 arreglito = [1, 2, 3, 4, 5, 6, 7]
 h1.setArreglo(arreglito)
-#print(h1.maxHeapify(2))
-#print(h1.buildMaxHeap())
-print(h1.heapSort())
+print(h1.maxHeapify(None, 2, None))
+print(h1.buildMaxHeap(arreglito))
+print(h1.heapSort(arreglito))
 #print(h1.parent(3))
 #print(h1.self.__arreglo)
 #print(h1.hijoDerecho(1))
