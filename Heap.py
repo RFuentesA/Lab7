@@ -40,6 +40,8 @@ class Heap():
             print("El arreglo que diste esta vacio. ")
         l = self.hijoIzquierdo(i) #l va a tomar el indice del hijo izquierdo.
         r = self.hijoDerecho(i) #r va a tomar el indice del hijo derecho.
+        print(l)
+        #print(r)
         if l <= tamañoHeap and arreA[l]>arreA[i]:          #-----
             mayor = l                                              #|
         else:                                                      #|
@@ -61,16 +63,16 @@ class Heap():
     
     def heapSort(self, arreA):
         arreA = self.__arreglo
-        tamañoHeap2 = len(arreA)
+        #tamañoHeap2 = len(arreA)
         self.buildMaxHeap(arreA)
         for i in range(len(arreA)-1, 0, -1):
             temp = arreA[i]
             arreA[i] = arreA[0]
             arreA[0] = temp
             #self.__size = tamañoHeap2
-            tamañoHeap2 -= 1
+            self.__size -= 1
             #self.setSize(tamañoHeap2)
-            self.maxHeapify(arreA, 0, tamañoHeap2)
+            self.maxHeapify(arreA, 0, self.__size)
         return arreA
         
 
@@ -78,8 +80,8 @@ class Heap():
 h1 = Heap()
 arreglito = [1, 2, 3, 4, 5, 6, 7]
 h1.setArreglo(arreglito)
-print(h1.maxHeapify(None, 2, None))
-print(h1.buildMaxHeap(arreglito))
+#print(h1.maxHeapify(None, 2, None))
+#print(h1.buildMaxHeap(arreglito))
 print(h1.heapSort(arreglito))
 #print(h1.parent(3))
 #print(h1.self.__arreglo)
