@@ -28,6 +28,7 @@ class Monticulo:
         if largest != i:
             self.A[i], self.A[largest] = self.A[largest], self.A[i]
             self.max_heapify(largest)
+        return self.A
 
     def construir_monticulo(self):
         n = self.heap_size // 2
@@ -48,3 +49,7 @@ class Colaprioritaria(Monticulo):
             raise ValueError("heap underflow")
         max_val = self.A[0]
         self.A[0] = self
+
+array = [1, 2, 3, 4, 5, 6, 7]
+h1 = Monticulo(array)
+print(h1.max_heapify(2))
